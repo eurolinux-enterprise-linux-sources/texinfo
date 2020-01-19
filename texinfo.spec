@@ -3,7 +3,7 @@
 Summary: Tools needed to create Texinfo format documentation files
 Name: texinfo
 Version: 5.1
-Release: 5%{?dist}
+Release: 1%{?dist}
 License: GPLv3+
 Group: Applications/Publishing
 Url: http://www.gnu.org/software/texinfo/
@@ -12,12 +12,6 @@ Source1: ftp://ftp.gnu.org/gnu/texinfo/texinfo-%{version}.tar.xz.sig
 Source2: info-dir
 Patch0: texinfo-4.12-zlib.patch
 Patch1: texinfo-4.13a-powerpc.patch
-# Patch2: bz#1053129, already upstream
-Patch2: texinfo-5.2-non-existing-info-page-segfault.patch
-# Patch3: bz#970986, already upstream
-Patch3: texinfo-5.1-pod-simple-texinfo-test-fail-fix.patch
-# Patch4: bz#1134160, already upstream
-Patch4: texinfo-5.1-enumerate-start-greater-than-nine-fix.patch
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
 Requires: perl >= 5.7.3, perl(Text::Unidecode)
@@ -63,9 +57,6 @@ for printing using TeX.
 %setup -q
 %patch0 -p1 -b .zlib
 %patch1 -p1 -b .powerpc
-%patch2 -p1 -b .non-existing-info-page-segfault
-%patch3 -p1 -b .pod-simple-texinfo-test-fail-fix
-%patch4 -p1 -b .enumerate-start-greater-than-nine-fix
 
 %build
 %configure --with-external-Text-Unidecode \
@@ -160,22 +151,6 @@ fi
 %{_mandir}/man1/pdftexi2dvi.1*
 
 %changelog
-* Mon Oct 02 2017 Vitezslav Crhonek <vcrhonek@redhat.com> - 5.1-5
-- Fix upstream test failure in Pod-Simple-Texinfo
-  Resolves: #970986
-- Fix @enumerate does not support start numbers greater than nine
-  Resolves: #1134160
-
-* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 5.1-4
-- Mass rebuild 2014-01-24
-
-* Mon Jan 20 2014 Vitezslav Crhonek <vcrhonek@redhat.com> - 5.1-3
-- Fix info segfaults on non existing info page when used with -o
-  Resolves: #1053129
-
-* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 5.1-2
-- Mass rebuild 2013-12-27
-
 * Mon Mar 18 2013 Vitezslav Crhonek <vcrhonek@redhat.com> - 5.1-1
 - Update to texinfo-5.1
 
